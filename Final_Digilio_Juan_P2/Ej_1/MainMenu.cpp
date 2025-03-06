@@ -73,4 +73,36 @@ void MainMenu::ShowMenu(ConsoleHandler* consoleData)
 
 void MainMenu::GetInput(ConsoleHandler* consoleData)
 {
+	mainMenu = true;
+
+	consoleData->userInput = '0';
+
+	while (consoleData->userInput != '1' && consoleData->userInput != '2' && consoleData->userInput != '3' && consoleData->userInput != 27)
+	{
+		consoleData->userInput = _getch();
+	}
+
+	switch (consoleData->userInput)
+	{
+		case '1':
+		{
+			//mainMenu = false;
+			break;
+		}
+		case '2':
+		{
+			//menu->ShowInstructions(console);
+			break;
+		}
+		case '3':
+		{
+			//menu->ShowMain(console);
+			break;
+		}
+		case 27:
+		{
+			consoleData->keepPlaying = false;
+			break;
+		}
+	}
 }

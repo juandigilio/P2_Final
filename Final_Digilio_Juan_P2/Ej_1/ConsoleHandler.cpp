@@ -1,16 +1,17 @@
 #include "ConsoleHandler.h"
 
-#include <iostream>
 
-
-using namespace std;
 
 ConsoleHandler::ConsoleHandler()
 {
 	consoleWide = 50;
 	consoleHeight = 30;
 	color = 144;
+	userInput = '0';
+	keepPlaying = true;
 	hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	Init();
 }
 
 ConsoleHandler::~ConsoleHandler()
@@ -18,10 +19,25 @@ ConsoleHandler::~ConsoleHandler()
 	std::cout << "ConsoleData deleted..." << std::endl;
 }
 
+void ConsoleHandler::Init()
+{
+	srand(time(NULL));
+	SetConsoleFont(10, 18);
+	SetConsoleSize(consoleWide, consoleHeight);
+	SetConsoleCenter();
+}
+
+void ConsoleHandler::SetConsoleCenter()
+{
+	consoleCenter.X = consoleWide / 2;
+	consoleCenter.Y = consoleHeight / 2;
+}
+
 void ConsoleHandler::SetConsoleSize(int wide, int height)
 {
 	consoleWide = wide;
 	consoleHeight = height;
+	SetConsoleCenter();
 
 	coord.X = consoleWide;
 	coord.Y = consoleHeight;
@@ -158,4 +174,33 @@ void ConsoleHandler::DrawFrame(int delay)
 	}
 
 	cout << (char)169;
+}
+
+void ConsoleHandler::SetCursorPosition(int x, int y)
+{
+	COORD newPos{};
+	newPos.X = x;
+	newPos.Y = y;
+	SetConsoleCursorPosition(hwnd, newPos);
+}
+
+void ConsoleHandler::SetCursorPosition(Vector2<int> position)
+{
+	SetCursorPosition(position.x, position.y);
+}
+
+void ConsoleHandler::SetCursorPosition(Vector2<int> position, string text)
+{
+	int x = position.x + text.length() + 1;
+	int y = position.y;
+}
+
+COORD ConsoleHandler::GetConsoleCenter()
+{
+	return consoleCenter;
+}
+
+Vector2<int> ConsoleHandler::GetConsoleCenterV2()
+{
+	return Vector2<int>(consoleCenter.X, consoleCenter.Y);
 }

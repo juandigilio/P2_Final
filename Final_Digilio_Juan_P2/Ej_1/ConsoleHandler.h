@@ -2,7 +2,11 @@
 
 #include "Vector2.h"
 
+#include <iostream>
 #include <Windows.h>
+
+using namespace std;
+
 
 enum Color
 {
@@ -17,7 +21,7 @@ enum Color
 
 class ConsoleHandler
 {
-public:
+private:
 
 	COORD cursorPosition;
 	HANDLE hwnd;
@@ -28,8 +32,16 @@ public:
 	int consoleWide;
 	int consoleHeight;
 	int color;
-	char userInput;
+	COORD consoleCenter;
 
+	void Init();
+	void SetConsoleCenter();
+
+public:
+
+	char userInput;
+	bool keepPlaying;
+	
 	COORD menu1;
 	COORD menu2;
 	COORD menu3;
@@ -38,8 +50,14 @@ public:
 	ConsoleHandler();
 	~ConsoleHandler();
 
+	
 	void SetConsoleSize(int wide, int height);
 	void SetConsoleFont(int wide, int height);
 	void DrawFrame(int delay);
+	void SetCursorPosition(int x, int y);
+	void SetCursorPosition(Vector2<int> position);
+	void SetCursorPosition(Vector2<int> position, string text);
+	COORD GetConsoleCenter();
+	Vector2<int> GetConsoleCenterV2();
 };
 

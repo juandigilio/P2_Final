@@ -189,7 +189,7 @@ void ConsoleHandler::SetCursorPosition(Vector2<int> position)
 	SetCursorPosition(position.x, position.y);
 }
 
-void ConsoleHandler::SetCursorPosition(Vector2<int> position, string text)
+void ConsoleHandler::SetCursorAfter(Vector2<int> position, string text)
 {
 	int x = position.x + text.length() + 1;
 	int y = position.y;
@@ -203,4 +203,25 @@ COORD ConsoleHandler::GetConsoleCenter()
 Vector2<int> ConsoleHandler::GetConsoleCenterV2()
 {
 	return Vector2<int>(consoleCenter.X, consoleCenter.Y);
+}
+
+void ConsoleHandler::PrintText(string text, Vector2<int> position)
+{
+	SetCursorPosition(position);
+	cout << text;
+}
+
+void ConsoleHandler::ClearText(string text, Vector2<int> position)
+{
+	SetCursorPosition(position);
+	
+	ClearText(text);
+}
+
+void ConsoleHandler::ClearText(string text)
+{
+	for (int i = 0; i < text.length(); i++)
+	{
+		cout << ' ';
+	}
 }

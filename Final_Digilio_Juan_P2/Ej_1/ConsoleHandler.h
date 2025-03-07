@@ -24,13 +24,12 @@ class ConsoleHandler
 private:
 
 	COORD cursorPosition;
-	HANDLE hwnd;
+	
 	CONSOLE_FONT_INFOEX cfi;
 	SMALL_RECT rect;
 	COORD coord;
 	CONSOLE_CURSOR_INFO cci;
-	int consoleWide;
-	int consoleHeight;
+	
 	int color;
 	COORD consoleCenter;
 
@@ -39,8 +38,11 @@ private:
 
 public:
 
+	HANDLE hwnd;
 	char userInput;
 	bool keepPlaying;
+	int consoleWide;
+	int consoleHeight;
 	
 	COORD menu1;
 	COORD menu2;
@@ -56,8 +58,11 @@ public:
 	void DrawFrame(int delay);
 	void SetCursorPosition(int x, int y);
 	void SetCursorPosition(Vector2<int> position);
-	void SetCursorPosition(Vector2<int> position, string text);
+	void SetCursorAfter(Vector2<int> position, string text);
 	COORD GetConsoleCenter();
 	Vector2<int> GetConsoleCenterV2();
+	void PrintText(string text, Vector2<int> position);
+	void ClearText(string text, Vector2<int> position);
+	void ClearText(string text);
 };
 

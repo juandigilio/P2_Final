@@ -174,6 +174,8 @@ void ConsoleHandler::DrawFrame(int delay)
 	}
 
 	cout << (char)169;
+
+	SetConsoleTextAttribute(hwnd, Color::grey);
 }
 
 void ConsoleHandler::SetCursorPosition(int x, int y)
@@ -214,7 +216,7 @@ void ConsoleHandler::PrintText(string text, Vector2<int> position)
 void ConsoleHandler::ClearText(string text, Vector2<int> position)
 {
 	SetCursorPosition(position);
-	
+
 	ClearText(text);
 }
 
@@ -224,4 +226,12 @@ void ConsoleHandler::ClearText(string text)
 	{
 		cout << ' ';
 	}
+}
+
+void ConsoleHandler::ClearInput(string text, Vector2<int> position, string textInput)
+{
+
+	SetCursorAfter(position, text);
+	ClearText(textInput);
+
 }

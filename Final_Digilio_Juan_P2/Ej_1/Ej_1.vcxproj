@@ -139,7 +139,7 @@
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="SumaTest.cpp" />
+    <ClCompile Include="SumaTest.tpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Vector2.tpp" />

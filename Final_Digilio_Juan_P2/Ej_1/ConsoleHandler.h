@@ -64,5 +64,6 @@ public:
 	void PrintText(string text, Vector2<int> position);
 	void ClearText(string text, Vector2<int> position);
 	void ClearText(string text);
+	void ClearInput(string text, Vector2<int> position, string textInput);
 };
 

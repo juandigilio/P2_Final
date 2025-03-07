@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Utilities">
       <UniqueIdentifier>{98db5f9b-b3d6-4bc2-aa3a-9a37b500b51c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game_1">
+      <UniqueIdentifier>{ce77b56c-22c3-40aa-913e-45f7c1d84e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game_1">
+      <UniqueIdentifier>{fcbd2192-29cd-4ddf-8d51-e0e06c78a894}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleHandler.h">
@@ -30,11 +36,14 @@
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SumaTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameData.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SumaTest.h">
+      <Filter>Header Files\Game_1</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherSumaTest.h">
+      <Filter>Header Files\Game_1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -52,11 +61,14 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SumaTest.tpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameData.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SumaTest.tpp">
+      <Filter>Source Files\Game_1</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherSumaTest.cpp">
+      <Filter>Source Files\Game_1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

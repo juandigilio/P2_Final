@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="ConsoleHandler.h" />
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="LauncherSumaTest.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="SumaTest.h" />
     <ClInclude Include="Vector2.h" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="ConsoleHandler.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="LauncherSumaTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="SumaTest.tpp" />

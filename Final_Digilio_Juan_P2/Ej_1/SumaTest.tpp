@@ -17,8 +17,6 @@ inline SumaTest<T>::SumaTest(ConsoleHandler* consoleData)
 {
 	isDecimal = false;
 	this->consoleData = consoleData;
-
-	Init();
 }
 
 template<is_numeric T>
@@ -45,11 +43,9 @@ void SumaTest<T>::SetValues()
 	consoleData->PrintText(values, valuesPos);
 	consoleData->PrintText(values2, values2Pos);
 	consoleData->PrintText(minText, minPos);
-
 	minVal = CheckValidInput(0, minText, minPos);
 
 	consoleData->PrintText(maxText, maxPos);
-
 	maxVal = CheckValidInput(minVal + 10, maxText, maxPos);
 
 	system("cls");
@@ -57,13 +53,33 @@ void SumaTest<T>::SetValues()
 	consoleData->DrawFrame(0);
 
 	consoleData->PrintText(roundsQnty, roundsQntyPos);
+	totalRounds = GetInteger(minRounds, roundsQnty, roundsQntyPos);
 
+	consoleData->ClearText(roundsQnty, roundsQntyPos);
+
+	consoleData->PrintText(roundLength, roundLengthPos);
+	numbersPerRound = GetInteger(minNumbersPerRound, roundLength, roundLengthPos);
+
+	consoleData->ClearText(roundLength, roundLengthPos);
+
+	consoleData->PrintText(delayText, delayPos);
+	delay = GetFloat(minDelay, delayText, delayPos);
+
+	system("cls");
 }
 
 template<is_numeric T>
 inline void SumaTest<T>::InstanceNewValue()
 {
-
+	if (isDecimal)
+	{
+		float temp = (minVal * 100) + (rand() % ((maxVal - minVal) * 100 + 1));
+		temp /= 100;
+	}
+	else
+	{
+		int temp = minVal + rand() % (maxVal - minVal + 1);
+	}
 }
 
 template<is_numeric T>
@@ -125,7 +141,7 @@ bool SumaTest<T>::IsType(string textInput, T& type)
 }
 
 template<is_numeric T>
-int SumaTest<T>::GetInteger(int min)
+int SumaTest<T>::GetInteger(int min, string text, Vector2<int> position)
 {
 	string textInput;
 	bool validValue = false;
@@ -139,6 +155,30 @@ int SumaTest<T>::GetInteger(int min)
 		{
 			validValue = true;
 		}
+
+		consoleData->ClearInput(text, position, textInput);
+	} while (!validValue);
+
+	return temp;
+}
+
+template<is_numeric T>
+float SumaTest<T>::GetFloat(float min, string text, Vector2<int> position)
+{
+	string textInput;
+	bool validValue = false;
+	float temp;
+
+	do
+	{
+		cin >> textInput;
+
+		if (IsType(textInput, temp) && temp > min)
+		{
+			validValue = true;
+		}
+
+		consoleData->ClearInput(text, position, textInput);
 	} while (!validValue);
 
 	return temp;

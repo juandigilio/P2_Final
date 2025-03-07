@@ -12,9 +12,9 @@ namespace SumaTestData
 	string values2 = "Diferencia minima entre min y max (10)";
 	string minText = "Minimo:";
 	string maxText = "Maximo:";
-	string roundsQnty = "Cantidad de rondas:";
-	string roundLength = "Cantidad de numeros por ronda:";
-	string delayText = "Tiempo de respuesta (s):";
+	string roundsQnty = "Cantidad de rondas (min 1)";
+	string roundLength = "Cantidad de numeros por ronda (min 3)";
+	string delayText = "Tiempo de respuesta (min 0.5s)";
 
 	Vector2<int> welcomePos{};
 	Vector2<int> typePos{};

@@ -25,6 +25,10 @@ private:
 	int totalRounds;
 	int numbersPerRound;
 	float delay;
+
+	const float minDelay = 0.5f;
+	const int minNumbersPerRound = 3;
+	const int minRounds = 1;
 	
 
 	void ShowDifficultyMenu();
@@ -34,7 +38,8 @@ private:
 	T CheckValidInput(T min, string text, Vector2<int> position);
 	void SetTwoDecimals(T& number);
 	bool IsType(string textInput, T& type);
-	int GetInteger(int min);
+	int GetInteger(int min, string text, Vector2<int> position);
+	float GetFloat(float min, string text, Vector2<int> position);
 
 public:
 

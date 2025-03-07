@@ -33,6 +33,8 @@ private:
 	T GetResult();
 	T CheckValidInput(T min, string text, Vector2<int> position);
 	void SetTwoDecimals(T& number);
+	bool IsType(string textInput, T& type);
+	int GetInteger(int min);
 
 public:
 

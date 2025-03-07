@@ -3,15 +3,21 @@
 
 #include "SumaTest.h"
 
+#include <conio.h>
+#include <sstream>
+#include <cmath>
+
+//#include "GameData.h"
 //#include "Vector2.h"
 
 
 template<is_numeric T>
 inline SumaTest<T>::SumaTest(ConsoleHandler* consoleData)
 {
-	result = 0;
-	hardMode = false;
+	isDecimal = false;
 	this->consoleData = consoleData;
+	
+	Init();
 }
 
 template<is_numeric T>
@@ -22,65 +28,28 @@ inline SumaTest<T>::~SumaTest()
 template<is_numeric T>
 void SumaTest<T>::Init()
 {
-	welcome = ">>Opciones de dificultad<<";
-	type = "Seleccione el tipo de dato: ";
-	integer = "1- Entero";
-	decimal = "2- Decimal";
-	values = "Seleccione el rango de valores: ";
-	min = "Minimo:";
-	max = "Maximo:";
-
-	Vector2<int> center = consoleData->GetConsoleCenter();
-
-	welcomePos{ center.x - welcome.length() / 2, center.y };
-	typePos{ center.x - type.length() / 2, center.y };
-	integerPos{ center.x - integer.length() / 2, center.y };
-	decimalPos{ center.x - decimal.length() / 2, center.y + 1 };
-	valuesPos{ center.x - values.length() / 2, center.y };
-	minPos{ center.x - min.length() / 2, center.y + 1 };
-	maxPos{ center.x - max.length() / 2, center.y + 1 };
+	SetValues();
 }
 
 template<is_numeric T>
 void SumaTest<T>::ShowDifficultyMenu()
 {
-	
 
 
-	welcomePos.x = (consoleData->consoleWide / 2) - (welcome.length() / 2);
-	welcomePos.y = (consoleData->consoleHeight / 20) * 6;
 }
 
 template<is_numeric T>
-void SumaTest<T>::SetDifficulty()
+void SumaTest<T>::SetValues()
 {
-	consoleData->DrawFrame(0);
+	consoleData->PrintText(values, valuesPos);
+	consoleData->PrintText(values2, values2Pos);
+	consoleData->PrintText(minText, minPos);
 
+	minVal = CheckValidInput(0, min, minPos);
 
-	cout << "Select difficulty: " << endl;
-	cout << "1- Easy" << endl;
-	cout << "2- Hard" << endl;
-	cout << "3- Back" << endl;
-	cout << "4- Exit" << endl;
-	cout << "Select an option: ";
-	cin >> userInput;
-	switch (userInput)
-	{
-		case '1':
-			hardMode = false;
-			break;
-		case '2':
-			hardMode = true;
-			break;
-		case '3':
-			break;
-		case '4':
-			keepPlaying = false;
-			break;
-		default:
-			cout << "Invalid option" << endl;
-			break;
-	}
+	consoleData->PrintText(maxText, maxPos);
+
+	maxVal = CheckValidInput(minVal + 10, max, maxPos);
 }
 
 template<is_numeric T>
@@ -93,6 +62,59 @@ template<is_numeric T>
 inline T SumaTest<T>::GetResult()
 {
 	return result;
+}
+
+template<is_numeric T>
+T SumaTest<T>::CheckValidInput(T min, string text, Vector2<int> position)
+{
+	string textInput;
+	bool validValue = false;
+	T temp;
+
+	do
+	{
+		cin >> textInput;
+
+		istringstream iss(textInput);
+
+		if (iss >> temp && iss.eof())
+		{
+			if (temp > min)
+			{
+				if (entrada.find('.') != string::npos) 
+				{
+					if (isDecimal)
+					{
+						validValue = true;
+						SetTwoDecimals(temp);
+					}		
+				}
+				else 
+				{
+					validValue = true;
+				}		
+			}
+			else
+			{
+				consoleData->SetCursorAfter(position, text);
+				consoleData->ClearText(textInput);
+			}
+		}
+		else
+		{
+			consoleData->SetCursorAfter(position, text);
+			consoleData->ClearText(textInput);
+		}
+
+	} while (!validValue);
+
+	return temp;
+}
+
+template<is_numeric T>
+void SumaTest<T>::SetTwoDecimals(T& number)
+{
+	number = round(number * 100.0) / 100.0;
 }
 
 

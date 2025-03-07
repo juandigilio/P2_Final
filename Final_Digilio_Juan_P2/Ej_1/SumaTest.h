@@ -18,37 +18,28 @@ class SumaTest
 {
 private:
 
-	T result;
-	bool hardMode;
 	ConsoleHandler* consoleData;
+	T minVal;
+	T maxVal;
+	T result;
+	int totalRounds;
+	int numbersPerRound;
+	float delay;
+	
 
-	string welcome;
-	string type;
-	string integer;
-	string decimal;
-	string values;
-	string min;
-	string max;
-
-	Vector2<int> welcomePos;
-	Vector2<int> typePos;
-	Vector2<int> integerPos;
-	Vector2<int> decimalPos;
-	Vector2<int> valuesPos;
-	Vector2<int> minPos;
-	Vector2<int> maxPos;
-
-	void Init();
 	void ShowDifficultyMenu();
-	void SetDifficulty();
+	void SetValues();
 	void InstanceNewValue();
 	T GetResult();
+	T CheckValidInput(T min, string text, Vector2<int> position);
+	void SetTwoDecimals(T& number);
 
 public:
 
 	SumaTest(ConsoleHandler* consoleData);
 	~SumaTest();
 
+	void Init();
 };
 
-//#include "SumaTest.tpp"
+#include "SumaTest.tpp"

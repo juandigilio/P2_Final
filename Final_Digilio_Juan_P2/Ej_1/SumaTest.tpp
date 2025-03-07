@@ -7,16 +7,17 @@
 #include <sstream>
 #include <cmath>
 
-//#include "GameData.h"
+#include "GameData.h"
 //#include "Vector2.h"
 
+using namespace SumaTestData;
 
 template<is_numeric T>
 inline SumaTest<T>::SumaTest(ConsoleHandler* consoleData)
 {
 	isDecimal = false;
 	this->consoleData = consoleData;
-	
+
 	Init();
 }
 
@@ -45,11 +46,18 @@ void SumaTest<T>::SetValues()
 	consoleData->PrintText(values2, values2Pos);
 	consoleData->PrintText(minText, minPos);
 
-	minVal = CheckValidInput(0, min, minPos);
+	minVal = CheckValidInput(0, minText, minPos);
 
 	consoleData->PrintText(maxText, maxPos);
 
-	maxVal = CheckValidInput(minVal + 10, max, maxPos);
+	maxVal = CheckValidInput(minVal + 10, maxText, maxPos);
+
+	system("cls");
+
+	consoleData->DrawFrame(0);
+
+	consoleData->PrintText(roundsQnty, roundsQntyPos);
+
 }
 
 template<is_numeric T>
@@ -75,36 +83,23 @@ T SumaTest<T>::CheckValidInput(T min, string text, Vector2<int> position)
 	{
 		cin >> textInput;
 
-		istringstream iss(textInput);
-
-		if (iss >> temp && iss.eof())
+		if (IsType(textInput, temp) && temp > min)
 		{
-			if (temp > min)
+			if (textInput.find('.') != string::npos)
 			{
-				if (entrada.find('.') != string::npos) 
+				if (isDecimal)
 				{
-					if (isDecimal)
-					{
-						validValue = true;
-						SetTwoDecimals(temp);
-					}		
-				}
-				else 
-				{
+					SetTwoDecimals(temp);
 					validValue = true;
-				}		
+				}
 			}
 			else
 			{
-				consoleData->SetCursorAfter(position, text);
-				consoleData->ClearText(textInput);
+				validValue = true;
 			}
 		}
-		else
-		{
-			consoleData->SetCursorAfter(position, text);
-			consoleData->ClearText(textInput);
-		}
+
+		consoleData->ClearInput(text, position, textInput);
 
 	} while (!validValue);
 
@@ -114,7 +109,39 @@ T SumaTest<T>::CheckValidInput(T min, string text, Vector2<int> position)
 template<is_numeric T>
 void SumaTest<T>::SetTwoDecimals(T& number)
 {
-	number = round(number * 100.0) / 100.0;
+	float temp = number;
+	number = round(temp * 100.0) / 100.0;
+}
+
+template<is_numeric T>
+bool SumaTest<T>::IsType(string textInput, T& type)
+{
+	istringstream iss(textInput);
+
+	if (iss >> type && iss.eof())
+	{
+		return true;
+	}
+}
+
+template<is_numeric T>
+int SumaTest<T>::GetInteger(int min)
+{
+	string textInput;
+	bool validValue = false;
+	int temp;
+
+	do
+	{
+		cin >> textInput;
+
+		if (IsType(textInput, temp) && temp > min)
+		{
+			validValue = true;
+		}
+	} while (!validValue);
+
+	return temp;
 }
 
 

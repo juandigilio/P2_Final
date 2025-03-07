@@ -3,9 +3,9 @@
 
 void main()
 {
-	MainMenu mainMenu;
 	ConsoleHandler consoleData;
+	MainMenu mainMenu(&consoleData);
 
-	mainMenu.ShowMenu(&consoleData);
+	mainMenu.Init();
 
 }

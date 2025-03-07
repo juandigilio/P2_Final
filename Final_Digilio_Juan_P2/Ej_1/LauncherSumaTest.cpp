@@ -41,6 +41,18 @@ void LauncherSumaTest::Init()
 	delayPos.x = center.x - delayText.length() / 2;
 	delayPos.y = center.y;
 
+	resultInputPos.x = center.x - resultInputStr.length() / 2;
+	resultInputPos.y = center.y;
+
+	wellDonePos.x = center.x - wellDone.length() / 2;
+	wellDonePos.y = center.y;
+
+	wrongAnswerPos.x = center.x - wrongAnswer.length() / 2;
+	wrongAnswerPos.y = center.y;
+
+	nextRoundPos.x = center.x - nextRound.length() / 2;
+	nextRoundPos.y = center.y;
+
 	SetSumaTestDifficulty();
 }
 

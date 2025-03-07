@@ -43,15 +43,9 @@ public:
 	bool keepPlaying;
 	int consoleWide;
 	int consoleHeight;
-	
-	COORD menu1;
-	COORD menu2;
-	COORD menu3;
-	COORD exit;
 
 	ConsoleHandler();
 	~ConsoleHandler();
-
 	
 	void SetConsoleSize(int wide, int height);
 	void SetConsoleFont(int wide, int height);

@@ -8,7 +8,6 @@
 #include <cmath>
 
 #include "GameData.h"
-//#include "Vector2.h"
 
 using namespace SumaTestData;
 
@@ -16,6 +15,7 @@ template<is_numeric T>
 inline SumaTest<T>::SumaTest(ConsoleHandler* consoleData)
 {
 	isDecimal = false;
+	totalWins = 0;
 	this->consoleData = consoleData;
 }
 
@@ -28,13 +28,6 @@ template<is_numeric T>
 void SumaTest<T>::Init()
 {
 	SetValues();
-}
-
-template<is_numeric T>
-void SumaTest<T>::ShowDifficultyMenu()
-{
-
-
 }
 
 template<is_numeric T>
@@ -71,21 +64,119 @@ void SumaTest<T>::SetValues()
 template<is_numeric T>
 inline void SumaTest<T>::InstanceNewValue()
 {
-	if (isDecimal)
+	T temp;
+	bool isValid = false;
+
+	do
 	{
-		float temp = (minVal * 100) + (rand() % ((maxVal - minVal) * 100 + 1));
-		temp /= 100;
-	}
-	else
-	{
-		int temp = minVal + rand() % (maxVal - minVal + 1);
-	}
+		if (isDecimal)
+		{
+			temp = (minVal * 100) + (rand() % ((maxVal - minVal) * 100 + 1));
+			temp /= 100;
+		}
+		else
+		{
+			temp = minVal + rand() % (maxVal - minVal + 1);
+		}
+
+		int randomNum = rand() % 2;
+
+		if (randomNum == 0)
+		{
+			temp *= -1;
+		}
+
+		if (result + temp >= 0)
+		{
+			isValid = true;
+		}
+	} while (!isValid);
+	
+	result += temp;
+
+	Vector2<int> center = consoleData->GetConsoleCenterV2();
+	center.x -= static_cast<string>(temp).length() / 2;
+
+	consoleData->SetCursorPosition(center);
+	cout << temp;
+
+	Sleep(InMilliseconds(delay));
 }
 
 template<is_numeric T>
 inline T SumaTest<T>::GetResult()
 {
 	return result;
+}
+
+template<is_numeric T>
+void SumaTest<T>::PLayGame()
+{
+	for (int i = 0; i < totalRounds; i++)
+	{
+		result = 0;
+
+		for (int j = 0; j < numbersPerRound; j++)
+		{
+			system("cls");
+			consoleData->DrawFrame(0);
+
+			InstanceNewValue();
+		}
+		
+		GetUserResult();
+
+		system("cls");
+		consoleData->DrawFrame(0);
+
+		if (i == totalRounds - 1)
+		{
+			consoleData->PrintText(totalAcerted + to_string(totalWins), totalAcertedPos);
+			Sleep(1500);
+		}
+		else
+		{
+			consoleData->PrintText(nextRound, nextRoundPos);
+			Sleep(1500);
+		}
+
+		consoleData->PrintText(nextRound, nextRoundPos);
+		Sleep(1500);
+	}
+}
+
+template<is_numeric T>
+void SumaTest<T>::GetUserResult()
+{
+	system("cls");
+	consoleData->DrawFrame(0);
+
+	T userResult;
+
+	consoleData->PrintText(resultInputStr, resultInputPos);
+
+	userResult = CheckValidInput(0, resultInputStr, resultInputPos);
+
+	consoleData->ClearText(resultInputStr, resultInputPos);
+
+	if (userResult == result)
+	{
+		totalWins++;
+
+		consoleData->PrintText(wellDone, wellDonePos);
+	}
+	else
+	{
+		consoleData->PrintText(wrongAnswer, wrongAnswerPos);
+		cout << result;
+	}
+
+	Sleep(1500);
+}
+
+template<is_numeric T>
+void SumaTest<T>::ShowResults()
+{
 }
 
 template<is_numeric T>
@@ -182,6 +273,12 @@ float SumaTest<T>::GetFloat(float min, string text, Vector2<int> position)
 	} while (!validValue);
 
 	return temp;
+}
+
+template<is_numeric T>
+int SumaTest<T>::InMilliseconds(float delay)
+{
+	return delay * 1000;
 }
 
 

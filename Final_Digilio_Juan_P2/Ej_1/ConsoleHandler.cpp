@@ -230,8 +230,6 @@ void ConsoleHandler::ClearText(string text)
 
 void ConsoleHandler::ClearInput(string text, Vector2<int> position, string textInput)
 {
-
 	SetCursorAfter(position, text);
 	ClearText(textInput);
-
 }

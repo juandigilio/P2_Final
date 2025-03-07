@@ -6,6 +6,5 @@ void main()
 	ConsoleHandler consoleData;
 	MainMenu mainMenu(&consoleData);
 
-	mainMenu.Init();
-
+	mainMenu.RunMenu();
 }

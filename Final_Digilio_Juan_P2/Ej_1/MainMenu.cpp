@@ -16,6 +16,8 @@ MainMenu::MainMenu(ConsoleHandler* consoleData)
 	mainMenu = false;
 
 	this->consoleData = consoleData;
+
+	Init();
 }
 
 MainMenu::~MainMenu()

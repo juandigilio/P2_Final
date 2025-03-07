@@ -2,22 +2,27 @@
 
 
 #include "ConsoleHandler.h"
-
+#include "SumaTest.h"
 
 class MainMenu
 {
 private:
 
+	ConsoleHandler* consoleData;
 	bool mainMenu;
 
+	void* sumaTest;
+
+	void ShowMenu();
+	void GetInput();
+	void InitSumaTest();
+	void SetSumaTestDifficulty();
 
 public:
 
-	MainMenu();
+	MainMenu(ConsoleHandler* consoleData);
 	~MainMenu();
 
-	void ShowMenu(ConsoleHandler* consoleData);
-	void GetInput(ConsoleHandler* consoleData);
-
+	void Init();
 };
 

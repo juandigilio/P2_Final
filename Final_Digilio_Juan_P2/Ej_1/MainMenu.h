@@ -21,5 +21,6 @@ public:
 	~MainMenu();
 
 	void Init();
+	void RunMenu();
 };
 

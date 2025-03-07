@@ -20,6 +20,11 @@ namespace SumaTestData
 	extern string roundsQnty;
 	extern string roundLength;
 	extern string delayText;
+	extern string resultInputStr;
+	extern string wellDone;
+	extern string wrongAnswer;
+	extern string nextRound;
+	extern string totalAcerted;
 
 	extern Vector2<int> welcomePos;
 	extern Vector2<int> typePos;
@@ -32,4 +37,24 @@ namespace SumaTestData
 	extern Vector2<int> roundsQntyPos;
 	extern Vector2<int> roundLengthPos;
 	extern Vector2<int> delayPos;
+	extern Vector2<int> resultInputPos;
+	extern Vector2<int> wellDonePos;
+	extern Vector2<int> wrongAnswerPos;
+	extern Vector2<int> nextRoundPos;
+	extern Vector2<int> totalAcertedPos;
+}
+
+namespace MainMenuData
+{
+	extern string menuWelcome;
+	extern string option1;
+	extern string option2;
+	extern string option3;
+	extern string exitStr;
+	extern string clean;
+	extern Vector2<int> menuWelcomePos;
+	extern Vector2<int> option1Pos;
+	extern Vector2<int> option2Pos;
+	extern Vector2<int> option3Pos;
+	extern Vector2<int> exitPos;
 }

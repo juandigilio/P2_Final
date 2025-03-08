@@ -65,7 +65,7 @@ void MainMenu::ShowMenu()
 	consoleData->DrawFrame(0);
 
 	SetConsoleTextAttribute(consoleData->hwnd, 10);
-	consoleData->PrintText(welcome, menuWelcomePos);
+	consoleData->PrintText(menuWelcome, menuWelcomePos);
 
 
 	SetConsoleTextAttribute(consoleData->hwnd, 15);

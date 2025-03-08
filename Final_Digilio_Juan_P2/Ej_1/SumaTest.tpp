@@ -14,7 +14,6 @@ using namespace SumaTestData;
 template<is_numeric T>
 inline SumaTest<T>::SumaTest(ConsoleHandler* consoleData)
 {
-	isDecimal = false;
 	totalWins = 0;
 	this->consoleData = consoleData;
 }
@@ -28,6 +27,7 @@ template<is_numeric T>
 void SumaTest<T>::Init()
 {
 	SetValues();
+	PLayGame();
 }
 
 template<is_numeric T>
@@ -39,26 +39,24 @@ void SumaTest<T>::SetValues()
 	minVal = CheckValidInput(0, minText, minPos);
 
 	consoleData->PrintText(maxText, maxPos);
-	maxVal = CheckValidInput(minVal + 10, maxText, maxPos);
+	maxVal = CheckValidInput(minRange + minVal, maxText, maxPos);
 
-	system("cls");
-
-	consoleData->DrawFrame(0);
+	consoleData->ClearConsole();
 
 	consoleData->PrintText(roundsQnty, roundsQntyPos);
 	totalRounds = GetInteger(minRounds, roundsQnty, roundsQntyPos);
 
-	consoleData->ClearText(roundsQnty, roundsQntyPos);
+	consoleData->ClearConsole();
 
 	consoleData->PrintText(roundLength, roundLengthPos);
 	numbersPerRound = GetInteger(minNumbersPerRound, roundLength, roundLengthPos);
 
-	consoleData->ClearText(roundLength, roundLengthPos);
+	consoleData->ClearConsole();
 
 	consoleData->PrintText(delayText, delayPos);
 	delay = GetFloat(minDelay, delayText, delayPos);
 
-	system("cls");
+	consoleData->ClearConsole();
 }
 
 template<is_numeric T>
@@ -71,12 +69,12 @@ inline void SumaTest<T>::InstanceNewValue()
 	{
 		if (isDecimal)
 		{
-			temp = (minVal * 100) + (rand() % ((maxVal - minVal) * 100 + 1));
+			temp = (minVal * 100) + (rand() % static_cast<int>((maxVal - minVal) * 100 + 1));
 			temp /= 100;
 		}
 		else
 		{
-			temp = minVal + rand() % (maxVal - minVal + 1);
+			temp = minVal + rand() % static_cast<int>(maxVal - minVal + 1);
 		}
 
 		int randomNum = rand() % 2;
@@ -95,7 +93,7 @@ inline void SumaTest<T>::InstanceNewValue()
 	result += temp;
 
 	Vector2<int> center = consoleData->GetConsoleCenterV2();
-	center.x -= static_cast<string>(temp).length() / 2;
+	center.x -= to_string(temp).length() / 2;
 
 	consoleData->SetCursorPosition(center);
 	cout << temp;
@@ -118,38 +116,31 @@ void SumaTest<T>::PLayGame()
 
 		for (int j = 0; j < numbersPerRound; j++)
 		{
-			system("cls");
-			consoleData->DrawFrame(0);
+			consoleData->ClearConsole();
 
 			InstanceNewValue();
 		}
 		
 		GetUserResult();
 
-		system("cls");
-		consoleData->DrawFrame(0);
+		consoleData->ClearConsole();
 
 		if (i == totalRounds - 1)
 		{
-			consoleData->PrintText(totalAcerted + to_string(totalWins), totalAcertedPos);
-			Sleep(1500);
+			ShowResults();
 		}
 		else
 		{
 			consoleData->PrintText(nextRound, nextRoundPos);
 			Sleep(1500);
 		}
-
-		consoleData->PrintText(nextRound, nextRoundPos);
-		Sleep(1500);
 	}
 }
 
 template<is_numeric T>
 void SumaTest<T>::GetUserResult()
 {
-	system("cls");
-	consoleData->DrawFrame(0);
+	consoleData->ClearConsole();
 
 	T userResult;
 
@@ -177,6 +168,11 @@ void SumaTest<T>::GetUserResult()
 template<is_numeric T>
 void SumaTest<T>::ShowResults()
 {
+	consoleData->ClearConsole();
+
+	consoleData->PrintText(totalAcerted + to_string(totalWins), totalAcertedPos);
+
+	Sleep(3000);
 }
 
 template<is_numeric T>
@@ -190,7 +186,7 @@ T SumaTest<T>::CheckValidInput(T min, string text, Vector2<int> position)
 	{
 		cin >> textInput;
 
-		if (IsType(textInput, temp) && temp > min)
+		if (IsNumber(textInput, temp) && temp >= min)
 		{
 			if (textInput.find('.') != string::npos)
 			{
@@ -221,7 +217,7 @@ void SumaTest<T>::SetTwoDecimals(T& number)
 }
 
 template<is_numeric T>
-bool SumaTest<T>::IsType(string textInput, T& type)
+bool SumaTest<T>::IsNumber(string textInput, T& type)
 {
 	istringstream iss(textInput);
 
@@ -242,7 +238,9 @@ int SumaTest<T>::GetInteger(int min, string text, Vector2<int> position)
 	{
 		cin >> textInput;
 
-		if (IsType(textInput, temp) && temp > min)
+		istringstream iss(textInput);
+
+		if (iss >> temp && iss.eof() && temp >= min )
 		{
 			validValue = true;
 		}
@@ -264,7 +262,9 @@ float SumaTest<T>::GetFloat(float min, string text, Vector2<int> position)
 	{
 		cin >> textInput;
 
-		if (IsType(textInput, temp) && temp > min)
+		istringstream iss(textInput);
+		
+		if (iss >> temp && iss.eof() && temp >= min)
 		{
 			validValue = true;
 		}
@@ -278,7 +278,7 @@ float SumaTest<T>::GetFloat(float min, string text, Vector2<int> position)
 template<is_numeric T>
 int SumaTest<T>::InMilliseconds(float delay)
 {
-	return delay * 1000;
+	return static_cast<int>(round(delay * 1000));
 }
 
 

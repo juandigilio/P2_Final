@@ -233,3 +233,9 @@ void ConsoleHandler::ClearInput(string text, Vector2<int> position, string textI
 	SetCursorAfter(position, text);
 	ClearText(textInput);
 }
+
+void ConsoleHandler::ClearConsole()
+{
+	system("cls");
+	DrawFrame(0);
+}

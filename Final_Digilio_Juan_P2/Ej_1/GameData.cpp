@@ -8,7 +8,7 @@ namespace SumaTestData
 	string type = "Seleccione el tipo de dato: ";
 	string integer = "1- Entero";
 	string decimal = "2- Decimal";
-	string values = "Seleccione el rango de valores: ";
+	string values = "Seleccione el rango de valores";
 	string values2 = "Diferencia minima entre min y max (10)";
 	string minText = "Minimo:";
 	string maxText = "Maximo:";

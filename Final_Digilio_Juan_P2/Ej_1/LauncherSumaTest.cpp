@@ -17,13 +17,13 @@ void LauncherSumaTest::Init()
 	integerPos.x = center.x - integer.length() / 2;
 	integerPos.y = center.y + 1;
 
-	decimalPos.x = center.x - decimal.length() / 2;
+	decimalPos.x = center.x - decimal.length() / 2 + 1;
 	decimalPos.y = center.y + 2;
 
 	valuesPos.x = center.x - values.length() / 2;
 	valuesPos.y = center.y;
 
-	values2Pos.x = center.x - values.length() / 2;
+	values2Pos.x = center.x - values2.length() / 2;
 	values2Pos.y = center.y + 1;
 
 	minPos.x = center.x - minText.length() / 2;
@@ -53,14 +53,15 @@ void LauncherSumaTest::Init()
 	nextRoundPos.x = center.x - nextRound.length() / 2;
 	nextRoundPos.y = center.y;
 
+	totalAcertedPos.x = center.x - totalAcerted.length() / 2;
+	totalAcertedPos.y = center.y;
+
 	SetSumaTestDifficulty();
 }
 
 void LauncherSumaTest::SetSumaTestDifficulty()
 {
-	system("cls");
-
-	consoleData->DrawFrame(0);
+	consoleData->ClearConsole();
 
 	consoleData->PrintText(welcome, welcomePos);
 
@@ -85,10 +86,7 @@ void LauncherSumaTest::SetSumaTestDifficulty()
 
 	} while (input != '1' && input != '2');
 
-	consoleData->ClearText(type, typePos);
-	consoleData->ClearText(integer, integerPos);
-	consoleData->ClearText(decimal, decimalPos);
-
+	consoleData->ClearConsole();
 
 	if (isDecimal)
 	{

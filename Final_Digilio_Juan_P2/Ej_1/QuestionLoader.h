@@ -22,7 +22,7 @@ public:
 	~QuestionLoader();
 
 	void Init();
-	void PushPack(vector<Question> emptyPack, Question dataPack[5]);
+	void PushPack(vector<Question>& emptyPack, Question dataPack[5]);
 	void SavePacks();
 	vector<Question> GetSciencePack();
 	vector<Question> GetPhisicsPack();

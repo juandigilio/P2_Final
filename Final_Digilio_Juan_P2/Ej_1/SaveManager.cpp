@@ -64,75 +64,75 @@ void SaveManager::SaveQuestionsPack(vector<Question>& questionsPack, const strin
 
 void SaveManager::LoadQuestionsPack(vector<Question>& questionsPack, const string& filePath)
 {
-    //ifstream inputStream;
+    ifstream inputStream;
 
-    //try
-    //{
-    //    cout << "Reading from the data file..." << endl;
+    try
+    {
+        cout << "Reading from the data file..." << endl;
 
-    //    inputStream.open(filePath, ios::in | ios::binary);
+        inputStream.open(filePath, ios::in | ios::binary);
 
-    //    if (!inputStream.is_open())
-    //    {
-    //        throw ifstream::failure("The file could not be opened");
-    //    }
+        if (!inputStream.is_open())
+        {
+            throw ifstream::failure("The file could not be opened");
+        }
 
-    //    size_t questionCount;
-    //    inputStream.read(reinterpret_cast<char*>(&questionCount), sizeof(questionCount));
+        size_t questionCount;
+        inputStream.read(reinterpret_cast<char*>(&questionCount), sizeof(questionCount));
 
-    //    if (inputStream.fail())
-    //    {
-    //        throw ifstream::failure("Error reading question count");
-    //    }
+        if (inputStream.fail())
+        {
+            throw ifstream::failure("Error reading question count");
+        }
 
-    //    auto readString = [&](string& str)
-    //    {
-    //         size_t size;
-    //         inputStream.read(reinterpret_cast<char*>(&size), sizeof(size));
-    //         
-    //         if (inputStream.fail())
-    //         {
-    //             throw ifstream::failure("Error reading string size");
-    //         }
-    //         
-    //         str.resize(size);
-    //         inputStream.read(&str[0], size);
-    //         
-    //         if (inputStream.fail())
-    //         {
-    //             throw ifstream::failure("Error reading string data");
-    //         }
-    //    };
+        auto readString = [&](string& str)
+        {
+             size_t size;
+             inputStream.read(reinterpret_cast<char*>(&size), sizeof(size));
+             
+             if (inputStream.fail())
+             {
+                 throw ifstream::failure("Error reading string size");
+             }
+             
+             str.resize(size);
+             inputStream.read(&str[0], size);
+             
+             if (inputStream.fail())
+             {
+                 throw ifstream::failure("Error reading string data");
+             }
+        };
 
-    //    questionsPack.clear();
+        questionsPack.clear();
 
-    //    for (size_t i = 0; i < questionCount; ++i)
-    //    {
-    //        Question question;
-    //        readString(question.qustion);
-    //        readString(question.correctOption);
-    //        readString(question.option1);
-    //        readString(question.option2);
-    //        readString(question.option3);
-    //        readString(question.option4);
+        for (size_t i = 0; i < questionCount; ++i)
+        {
+            Question question;
+            readString(question.qustion);
+            readString(question.correctOption);
+            readString(question.option1);
+            readString(question.option2);
+            readString(question.option3);
+            readString(question.option4);
 
-    //        questionsPack.push_back(question);
-    //    }
+            questionsPack.push_back(question);
+        }
 
-    //    inputStream.close();
+        inputStream.close();
 
-    //    if (inputStream.is_open())
-    //    {
-    //        throw ifstream::failure("The file could not be closed");
-    //    }
-    //}
-    //catch (const ifstream::failure& exception)
-    //{
-    //    cerr << "INPUT FILE STREAM ERROR: " << exception.what() << endl;
+        if (inputStream.is_open())
+        {
+            throw ifstream::failure("The file could not be closed");
+        }
+    }
+    catch (const ifstream::failure& exception)
+    {
+        cerr << "INPUT FILE STREAM ERROR: " << exception.what() << endl;
 
-    //    if (inputStream.is_open())
-    //    {
-    //        inputStream.close();
-    //    }
-    //}
+        if (inputStream.is_open())
+        {
+            inputStream.close();
+        }
+    }
 }

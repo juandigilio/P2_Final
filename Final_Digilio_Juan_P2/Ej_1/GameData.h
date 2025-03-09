@@ -69,6 +69,7 @@ namespace Pregunta3Data
 	extern string mechanicsText;
 	extern string mathsText;
 
+	extern string exitText;
 	extern string wellDone;
 	extern string wrongAnswer;
 	extern string nextAnswer;
@@ -84,6 +85,7 @@ namespace Pregunta3Data
 
 	extern Vector2<int> questionPos;
 	extern vector<Vector2<int>> optionsPos;
+	extern Vector2<int> exitPos;
 
 	extern Vector2<int> wellDonePos;
 	extern Vector2<int> wrongAnswerPos;

@@ -207,7 +207,7 @@ void QuestionLoader::Init()
 	SavePacks();
 }
 
-void QuestionLoader::PushPack(vector<Question> emptyPack, Question dataPack[5])
+void QuestionLoader::PushPack(vector<Question>& emptyPack, Question dataPack[5])
 {
 	for (int i = 0; i < 5; i++)
 	{

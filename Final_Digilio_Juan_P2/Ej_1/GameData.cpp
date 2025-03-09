@@ -64,6 +64,7 @@ namespace Pregunta3Data
 	string mechanicsText = "4-Mecanica";
 	string mathsText = "5-Matematicas";
 
+	string exitText = "ESC - Exit";
 	string wellDone = "Correcto!";
 	string wrongAnswer = "Incorrecto, la respuesta correcta es: ";
 	string nextAnswer = "Siguiente pregunta >>>>";
@@ -79,6 +80,7 @@ namespace Pregunta3Data
 
 	Vector2<int> questionPos{};
 	vector<Vector2<int>> optionsPos{};
+	Vector2<int> exitPos{};
 
 	Vector2<int> wellDonePos{};
 	Vector2<int> wrongAnswerPos{};

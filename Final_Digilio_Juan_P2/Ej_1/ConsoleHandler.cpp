@@ -1,7 +1,6 @@
 #include "ConsoleHandler.h"
 
 
-
 ConsoleHandler::ConsoleHandler()
 {
 	consoleWide = 50;
@@ -54,6 +53,8 @@ void ConsoleHandler::SetConsoleSize(int wide, int height)
 	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cci);
 	cci.bVisible = 0;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cci);
+
+
 }
 
 void ConsoleHandler::SetConsoleFont(int wide, int height)

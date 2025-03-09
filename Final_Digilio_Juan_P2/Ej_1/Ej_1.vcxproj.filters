@@ -19,11 +19,23 @@
     <Filter Include="Source Files\Utilities">
       <UniqueIdentifier>{98db5f9b-b3d6-4bc2-aa3a-9a37b500b51c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Game_1">
+    <Filter Include="Source Files\MainMenu">
+      <UniqueIdentifier>{539888e1-a64d-4cd7-92f2-9799018c2152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MainMenu">
+      <UniqueIdentifier>{cc5fb140-b3bf-4bac-a9e8-f5e57e767296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SumTest">
       <UniqueIdentifier>{ce77b56c-22c3-40aa-913e-45f7c1d84e1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game_1">
+    <Filter Include="Source Files\SumTest">
       <UniqueIdentifier>{fcbd2192-29cd-4ddf-8d51-e0e06c78a894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pregunta3">
+      <UniqueIdentifier>{dcbbcec8-6d19-475f-88b2-d2eef25c9b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pregunta3">
+      <UniqueIdentifier>{d539d786-2e62-4568-9fd2-2c1efca39318}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,17 +45,32 @@
     <ClInclude Include="Vector2.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SumaTest.h">
-      <Filter>Header Files\Game_1</Filter>
+      <Filter>Header Files\SumTest</Filter>
     </ClInclude>
     <ClInclude Include="LauncherSumaTest.h">
-      <Filter>Header Files\Game_1</Filter>
+      <Filter>Header Files\SumTest</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Question.h">
+      <Filter>Header Files\Pregunta3</Filter>
+    </ClInclude>
+    <ClInclude Include="Pregunta3.h">
+      <Filter>Header Files\Pregunta3</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveManager.h">
+      <Filter>Header Files\Pregunta3</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionLoader.h">
+      <Filter>Header Files\Pregunta3</Filter>
+    </ClInclude>
+    <ClInclude Include="LauncherPregunta3.h">
+      <Filter>Header Files\Pregunta3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,20 +82,32 @@
     <ClCompile Include="ConsoleHandler.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SumaTest.tpp">
-      <Filter>Source Files\Game_1</Filter>
+      <Filter>Source Files\SumTest</Filter>
     </ClCompile>
     <ClCompile Include="LauncherSumaTest.cpp">
-      <Filter>Source Files\Game_1</Filter>
+      <Filter>Source Files\SumTest</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Pregunta3.cpp">
+      <Filter>Source Files\Pregunta3</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveManager.cpp">
+      <Filter>Source Files\Pregunta3</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionLoader.cpp">
+      <Filter>Source Files\Pregunta3</Filter>
+    </ClCompile>
+    <ClCompile Include="LauncherPregunta3.cpp">
+      <Filter>Source Files\Pregunta3</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 
 #include "GameData.h"
 #include "LauncherSumaTest.h"
+#include "LauncherPregunta3.h"
 
 using namespace std;
 using namespace SumaTestData;
@@ -91,7 +92,8 @@ void MainMenu::GetInput()
 		}
 		case '2':
 		{
-			//menu->ShowInstructions(console);
+			LauncherPregunta3 pregunta3(consoleData);
+			pregunta3.Init();
 			break;
 		}
 		case '3':

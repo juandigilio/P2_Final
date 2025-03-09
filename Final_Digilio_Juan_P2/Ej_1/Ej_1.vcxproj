@@ -130,17 +130,26 @@
   <ItemGroup>
     <ClInclude Include="ConsoleHandler.h" />
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="LauncherPregunta3.h" />
     <ClInclude Include="LauncherSumaTest.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Pregunta3.h" />
+    <ClInclude Include="Question.h" />
+    <ClInclude Include="QuestionLoader.h" />
+    <ClInclude Include="SaveManager.h" />
     <ClInclude Include="SumaTest.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleHandler.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="LauncherPregunta3.cpp" />
     <ClCompile Include="LauncherSumaTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Pregunta3.cpp" />
+    <ClCompile Include="QuestionLoader.cpp" />
+    <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="SumaTest.tpp" />
   </ItemGroup>
   <ItemGroup>

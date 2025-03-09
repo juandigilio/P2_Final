@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include "Vector2.h"
 
@@ -58,3 +59,36 @@ namespace MainMenuData
 	extern Vector2<int> option3Pos;
 	extern Vector2<int> exitPos;
 }
+
+namespace Pregunta3Data
+{
+	extern string selectTheme;
+	extern string scienceText;
+	extern string phisicsText;
+	extern string gamingText;
+	extern string mechanicsText;
+	extern string mathsText;
+
+	extern string wellDone;
+	extern string wrongAnswer;
+	extern string nextAnswer;
+
+	extern string totalAcertedQnty;
+
+	extern Vector2<int> selectThemePos;
+	extern Vector2<int> sciencePos;
+	extern Vector2<int> phisicsPos;
+	extern Vector2<int> gamingPos;
+	extern Vector2<int> mechanicsPos;
+	extern Vector2<int> mathsPos;
+
+	extern Vector2<int> questionPos;
+	extern vector<Vector2<int>> optionsPos;
+
+	extern Vector2<int> wellDonePos;
+	extern Vector2<int> wrongAnswerPos;
+	extern Vector2<int> nextAnswerPos;
+
+	extern Vector2<int> totalAcertedQntyPos;
+}
+	

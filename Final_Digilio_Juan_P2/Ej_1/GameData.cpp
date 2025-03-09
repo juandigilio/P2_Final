@@ -54,3 +54,35 @@ namespace MainMenuData
 	Vector2<int> option3Pos{};
 	Vector2<int> exitPos{};
 }
+
+namespace Pregunta3Data
+{
+	string selectTheme = "Seleccione el tema";
+	string scienceText = "1-Ciencia";
+	string phisicsText = "2-Fisica";
+	string gamingText = "3-Gaming";
+	string mechanicsText = "4-Mecanica";
+	string mathsText = "5-Matematicas";
+
+	string wellDone = "Correcto!";
+	string wrongAnswer = "Incorrecto, la respuesta correcta es: ";
+	string nextAnswer = "Siguiente pregunta >>>>";
+
+	string totalAcertedQnty = "Aciertos totales: ";
+
+	Vector2<int> selectThemePos{};
+	Vector2<int> sciencePos{};
+	Vector2<int> phisicsPos{};
+	Vector2<int> gamingPos{};
+	Vector2<int> mechanicsPos{};
+	Vector2<int> mathsPos{};
+
+	Vector2<int> questionPos{};
+	vector<Vector2<int>> optionsPos{};
+
+	Vector2<int> wellDonePos{};
+	Vector2<int> wrongAnswerPos{};
+	Vector2<int> nextAnswerPos{};
+
+	Vector2<int> totalAcertedQntyPos{};
+}

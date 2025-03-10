@@ -104,11 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)packages\cpprestsdk.v142.2.10.15\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)packages\cpprestsdk.v142.2.10.15\build\native\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cpprest142_2_10d.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleHandler.h" />
+    <ClInclude Include="Definite.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="LauncherPregunta3.h" />
     <ClInclude Include="LauncherSumaTest.h" />
@@ -142,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleHandler.cpp" />
+    <ClCompile Include="Definite.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="LauncherPregunta3.cpp" />
     <ClCompile Include="LauncherSumaTest.cpp" />
@@ -153,6 +158,7 @@
     <ClCompile Include="SumaTest.tpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Vector2.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

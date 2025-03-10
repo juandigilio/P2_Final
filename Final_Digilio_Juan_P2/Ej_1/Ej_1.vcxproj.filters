@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Pregunta3">
       <UniqueIdentifier>{d539d786-2e62-4568-9fd2-2c1efca39318}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Definite">
+      <UniqueIdentifier>{9071ab5f-dd20-4a1f-a14f-cea0944a8aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Definite">
+      <UniqueIdentifier>{2657f805-099c-4b33-ac5b-63ffeb9e3e1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleHandler.h">
@@ -72,11 +78,15 @@
     <ClInclude Include="LauncherPregunta3.h">
       <Filter>Header Files\Pregunta3</Filter>
     </ClInclude>
+    <ClInclude Include="Definite.h">
+      <Filter>Header Files\Definite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Vector2.tpp">
       <Filter>Source Files\Utilities</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleHandler.cpp">
@@ -108,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="Pregunta3.cpp">
       <Filter>Source Files\Pregunta3</Filter>
+    </ClCompile>
+    <ClCompile Include="Definite.cpp">
+      <Filter>Source Files\Definite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

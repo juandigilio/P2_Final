@@ -7,6 +7,7 @@
 #include "GameData.h"
 #include "LauncherSumaTest.h"
 #include "LauncherPregunta3.h"
+#include "Definite.h"
 
 using namespace std;
 using namespace SumaTestData;
@@ -98,7 +99,8 @@ void MainMenu::GetInput()
 		}
 		case '3':
 		{
-			//menu->ShowMain(console);
+			Definite definite(2);
+			//definite.StartGame();
 			break;
 		}
 		case 27:

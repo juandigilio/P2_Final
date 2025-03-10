@@ -9,6 +9,8 @@
 #include <thread>
 #include <mutex>
 
+#include "ConsoleHandler.h"
+
 using namespace std;
 using namespace web;
 using namespace web::http;
@@ -28,6 +30,7 @@ class Definite
 {
 private:
 
+	ConsoleHandler* consoleData;
     vector<WordData> words;
     vector<future<void>> loadFutures;
     mutex loadMutex;
@@ -35,11 +38,12 @@ private:
     int rounds;
     http_client wordClient = http_client(to_string_t(WORD_API_URL));
     http_client definitionClient = http_client(to_string_t(DEFINITION_API_URL));
+    bool allTasksCompleted;
 
 
 public:
 
-    Definite(int rounds);
+    Definite(ConsoleHandler* consoleData, int rounds);
     void FetchWordAndDefinition(WordData& wordData);
     void StartGame();
     void ShowLoadingAnimation();

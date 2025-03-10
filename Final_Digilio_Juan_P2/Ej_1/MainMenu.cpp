@@ -99,8 +99,8 @@ void MainMenu::GetInput()
 		}
 		case '3':
 		{
-			Definite definite(2);
-			//definite.StartGame();
+			Definite definite(consoleData, 2);
+			definite.StartGame();
 			break;
 		}
 		case 27:

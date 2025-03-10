@@ -93,4 +93,3 @@ namespace Pregunta3Data
 
 	extern Vector2<int> totalAcertedQntyPos;
 }
-	

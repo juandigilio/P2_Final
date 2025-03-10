@@ -56,6 +56,8 @@ public:
 	COORD GetConsoleCenter();
 	Vector2<int> GetConsoleCenterV2();
 	void PrintText(string text, Vector2<int> position);
+	void PrintCenteredText(string text, int desplacementX, int desplacementY);
+	void PrintCenteredText(string text);
 	void ClearText(string text, Vector2<int> position);
 	void ClearText(string text);
 	void ClearInput(string text, Vector2<int> position, string textInput);

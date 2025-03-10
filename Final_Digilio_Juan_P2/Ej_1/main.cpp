@@ -9,7 +9,6 @@ void main()
 {
 	ConsoleHandler consoleData;
 	MainMenu mainMenu(&consoleData);
-	//consoleData.SetConsoleSize(80, 40);
 
 	mainMenu.RunMenu();
 }

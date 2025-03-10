@@ -44,7 +44,11 @@ private:
 public:
 
     Definite(ConsoleHandler* consoleData, int rounds);
+    ~Definite();
+
     void FetchWordAndDefinition(WordData& wordData);
+    void GetWord(WordData& wordData);
+	void GetDefinition(WordData& wordData);
     void StartGame();
     void ShowLoadingAnimation();
     void ShowResults();

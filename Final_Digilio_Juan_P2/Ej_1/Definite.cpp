@@ -7,63 +7,76 @@ Definite::Definite(ConsoleHandler* consoleData, int rounds)
 	allTasksCompleted = false;
 }
 
+Definite::~Definite()
+{
+}
+
 void Definite::FetchWordAndDefinition(WordData& wordData)
 {
     try
     {
-        http_request wordRequest(methods::GET);
-        http_response wordResponse = wordClient.request(wordRequest).get();
+		GetWord(wordData);
 
-
-        if (wordResponse.status_code() == 200)
-        {
-            auto jsonResponse = wordResponse.extract_json().get();
-
-            if (jsonResponse.as_array().size() != 0)
-            {
-                wordData.word = to_utf8string(jsonResponse.as_array()[0].as_string());
-            }
-            else
-            {
-                cerr << "API response is empty!" << endl;
-                return;
-            }
-        }
-        else
-        {
-            CheckErrorCode(wordResponse);
-            return;
-        }
-
-        uri_builder defUri(to_string_t(wordData.word));
-        http_response definitionResponse = definitionClient.request(methods::GET, defUri.to_string()).get();
-
-        if (definitionResponse.status_code() == 200)
-        {
-            auto jsonResponse = definitionResponse.extract_json().get();
-
-            if (jsonResponse.as_array().size() > 0 &&
-                jsonResponse.as_array()[0].has_field(to_string_t("meanings")) &&
-                jsonResponse.as_array()[0][to_string_t("meanings")].as_array().size() > 0 &&
-                jsonResponse.as_array()[0][to_string_t("meanings")][0].has_field(to_string_t("definitions")) &&
-                jsonResponse.as_array()[0][to_string_t("meanings")][0][to_string_t("definitions")].as_array().size() > 0 &&
-                jsonResponse.as_array()[0][to_string_t("meanings")][0][to_string_t("definitions")][0].has_field(to_string_t("definition")))
-            {
-                wordData.definition = to_utf8string(jsonResponse.as_array()[0][to_string_t("meanings")][0][to_string_t("definitions")][0][to_string_t("definition")].as_string());
-            }
-            else
-            {
-                cerr << "Definition not found in API response!" << endl;
-            }
-        }
-        else
-        {
-            CheckErrorCode(definitionResponse);
-        }
+		GetDefinition(wordData);
     }
-    catch (const std::exception& e)
+    catch (const exception& e)
     {
         cerr << "Exception in FetchWordAndDefinition : " << e.what() << endl;
+    }
+}
+
+void Definite::GetWord(WordData& wordData)
+{
+    http_request wordRequest(methods::GET);
+    http_response wordResponse = wordClient.request(wordRequest).get();
+
+    if (wordResponse.status_code() == 200)
+    {
+        auto jsonResponse = wordResponse.extract_json().get();
+
+        if (jsonResponse.as_array().size() != 0)
+        {
+            wordData.word = to_utf8string(jsonResponse.as_array()[0].as_string());
+        }
+        else
+        {
+            cerr << "API response is empty!" << endl;
+            return;
+        }
+    }
+    else
+    {
+        CheckErrorCode(wordResponse);
+        return;
+    }
+}
+
+void Definite::GetDefinition(WordData& wordData)
+{
+    uri_builder defUri(to_string_t(wordData.word));
+    http_response definitionResponse = definitionClient.request(methods::GET, defUri.to_string()).get();
+
+    if (definitionResponse.status_code() == 200)
+    {
+        auto jsonResponse = definitionResponse.extract_json().get();
+
+        if (jsonResponse.as_array().size() > 0 &&
+            jsonResponse.as_array()[0].has_field(to_string_t("meanings")) &&
+            jsonResponse.as_array()[0][to_string_t("meanings")].as_array().size() > 0 &&
+            jsonResponse.as_array()[0][to_string_t("meanings")][0].has_field(to_string_t("definitions")) &&
+            jsonResponse.as_array()[0][to_string_t("meanings")][0][to_string_t("definitions")].as_array().size() > 0 &&
+            jsonResponse.as_array()[0][to_string_t("meanings")][0][to_string_t("definitions")][0].has_field(to_string_t("definition")))
+        {
+            wordData.definition = to_utf8string(jsonResponse.as_array()[0][to_string_t("meanings")][0][to_string_t("definitions")][0][to_string_t("definition")].as_string());
+        }
+        else
+        {
+            cerr << "Definition not found in API response!" << endl;
+        }
+    }
+    else
+    {
+        CheckErrorCode(definitionResponse);
     }
 }
 
@@ -121,21 +134,29 @@ void Definite::StartGame()
 
     for (const auto& wordData : words)
     {
-        cout << "Definition: " << wordData.definition << endl;
-        cout << "Your answer: ";
+		consoleData->ClearConsole();
+
+        consoleData->PrintCenteredText("Word: " + wordData.word);
+		consoleData->PrintCenteredText("Definition: " + wordData.definition, 0, 1);
+		consoleData->PrintCenteredText("Your answer: ", 0, 2);
 
         string answer;
         getline(cin, answer);
 
         if (answer == wordData.word)
         {
-            cout << "Correct!" << endl;
+			consoleData->PrintCenteredText("Correct!");
             score++;
         }
         else
         {
-            cout << "Incorrect! The correct word was: " << wordData.word << endl;
+			consoleData->PrintCenteredText("Incorrect! The correct word was:");
+			consoleData->PrintCenteredText(wordData.word, 0, 1);
         }
+
+		Sleep(2000);
+
+		consoleData->ClearConsole();
     }
 
     ShowResults();
@@ -143,7 +164,12 @@ void Definite::StartGame()
 
 void Definite::ShowResults()
 {
-    cout << "Game Finished! You scored " << score << " out of " << rounds << "!" << endl;
+	consoleData->ClearConsole();
+
+	consoleData->PrintCenteredText("Game Finished!");
+	consoleData->PrintCenteredText("You scored " + to_string(score) + " out of " + to_string(rounds) + "!", 0, 1);
+
+	Sleep(2000);
 }
 
 void Definite::CheckErrorCode(http_response wordResponse)

@@ -214,6 +214,21 @@ void ConsoleHandler::PrintText(string text, Vector2<int> position)
 	cout << text;
 }
 
+void ConsoleHandler::PrintCenteredText(string text, int desplacementX, int desplacementY)
+{
+	Vector2<int> center = GetConsoleCenterV2();
+	center.x -= text.length() / 2;
+	center.x += desplacementX;
+	center.y += desplacementY;
+
+	PrintText(text, center);
+}
+
+void ConsoleHandler::PrintCenteredText(string text)
+{
+	PrintCenteredText(text, 0, 0);
+}
+
 void ConsoleHandler::ClearText(string text, Vector2<int> position)
 {
 	SetCursorPosition(position);

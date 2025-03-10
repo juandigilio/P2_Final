@@ -3,8 +3,8 @@
 
 ConsoleHandler::ConsoleHandler()
 {
-	consoleWide = 50;
-	consoleHeight = 30;
+	consoleWide = 80;
+	consoleHeight = 35;
 	color = 144;
 	userInput = '0';
 	keepPlaying = true;

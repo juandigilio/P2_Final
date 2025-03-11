@@ -218,7 +218,7 @@ void ConsoleHandler::PrintCenteredText(string text, int desplacementX, int despl
 {
 	Vector2<int> center = GetConsoleCenterV2();
 	center.x -= text.length() / 2;
-	center.x += desplacementX;
+	center.x -= desplacementX / 2;
 	center.y += desplacementY;
 
 	PrintText(text, center);

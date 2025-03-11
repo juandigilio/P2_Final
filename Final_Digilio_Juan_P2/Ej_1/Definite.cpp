@@ -5,6 +5,7 @@ Definite::Definite(ConsoleHandler* consoleData, int rounds)
     this->rounds = rounds;
 	this->consoleData = consoleData;
 	allTasksCompleted = false;
+	errorsQnty = 0;
 }
 
 Definite::~Definite()
@@ -15,40 +16,66 @@ void Definite::FetchWordAndDefinition(WordData& wordData)
 {
     try
     {
-		GetWord(wordData);
+        do
+        {
+            GetWord(wordData);
 
-		GetDefinition(wordData);
+            GetDefinition(wordData);
+
+        } while (wordData.word.empty() || wordData.definition.empty());
+		
     }
     catch (const exception& e)
     {
         cerr << "Exception in FetchWordAndDefinition : " << e.what() << endl;
     }
+
+	errorsQnty = 0;
 }
 
 void Definite::GetWord(WordData& wordData)
 {
-    http_request wordRequest(methods::GET);
-    http_response wordResponse = wordClient.request(wordRequest).get();
+    bool isValid;
 
-    if (wordResponse.status_code() == 200)
+    do
     {
-        auto jsonResponse = wordResponse.extract_json().get();
+        isValid = true;
 
-        if (jsonResponse.as_array().size() != 0)
+        http_request wordRequest(methods::GET);
+        http_response wordResponse = wordClient.request(wordRequest).get();
+
+        if (wordResponse.status_code() == 200)
         {
-            wordData.word = to_utf8string(jsonResponse.as_array()[0].as_string());
+            auto jsonResponse = wordResponse.extract_json().get();
+
+            if (jsonResponse.as_array().size() != 0)
+            {
+                wordData.word = to_utf8string(jsonResponse.as_array()[0].as_string());
+
+				for (int i = 0; i < wordData.word.length(); i++)
+				{
+					if (wordData.word[i] == ' ')
+					{
+						isValid = false;
+						break;
+					}
+				}
+            }
+            else
+            {
+                cerr << "API response is empty!" << endl;
+                Sleep(2000);
+                return;
+            }
         }
         else
         {
-            cerr << "API response is empty!" << endl;
+            CheckErrorCode(wordResponse, "Word error ");
+            Sleep(2000);
             return;
         }
-    }
-    else
-    {
-        CheckErrorCode(wordResponse);
-        return;
-    }
+
+	} while (!isValid);
 }
 
 void Definite::GetDefinition(WordData& wordData)
@@ -76,7 +103,31 @@ void Definite::GetDefinition(WordData& wordData)
     }
     else
     {
-        CheckErrorCode(definitionResponse);
+        CheckErrorCode(definitionResponse, "Definition error ");
+    }
+}
+
+void Definite::LoadDefinitions()
+{
+    words.reserve(rounds);
+
+    for (int i = 0; i < rounds; i++)
+    {
+        words.emplace_back();
+
+        WordData* newWord = &words.back();
+
+        loadFutures.push_back(async(launch::async, [this, newWord]
+            {
+                try
+                {
+                    FetchWordAndDefinition(*newWord);
+                }
+                catch (const std::exception& e)
+                {
+                    cerr << "Error en FetchWordAndDefinition: " << e.what() << endl;
+                }
+            }));
     }
 }
 
@@ -85,38 +136,49 @@ void Definite::ShowLoadingAnimation()
     const char animation[] = "|/-\\";
     int i = 0;
 
-    consoleData->ClearConsole();
+	system("cls");
 
     while (!allTasksCompleted)
     {
-        cout << "\rLoading " << animation[i++ % 4] << flush;
+		consoleData->PrintCenteredText("Loading ", 4, 0);
+        cout << animation[i++ % 4] << flush;
         this_thread::sleep_for(chrono::milliseconds(200));
     }
 
     cout << "\r" << string(10, ' ') << "\r";
 }
 
+void Definite::GameLoop()
+{
+    for (const auto& wordData : words)
+    {
+        ShowDefinition(wordData.definition);
+        ShowWord(wordData.word);
+
+        CheckCorrectAnswer(wordData.word);
+    }
+}
+
+void Definite::ShowDefinition(string definition)
+{
+    system("cls");
+
+    consoleData->SetCursorPosition(0, 0);
+    cout << "Definition: " << definition << endl;\
+  
+    consoleData->PrintCenteredText("Your answer: ");
+}
+
+void Definite::ShowWord(string word)
+{
+    consoleData->PrintText("Palabra: " + word, Vector2(0, 4));
+}
+
 void Definite::StartGame()
 {
     words.reserve(rounds);
 
-    for (int i = 0; i < rounds; i++)
-    {
-        words.emplace_back(); 
-        WordData* newWord = &words.back();
-
-        loadFutures.push_back(async(launch::async, [this, newWord] 
-        {
-            try 
-            {
-                FetchWordAndDefinition(*newWord);
-            }
-            catch (const std::exception& e) 
-            {
-                cerr << "Error en FetchWordAndDefinition: " << e.what() << endl;
-            }
-        }));
-    }
+    LoadDefinitions();
 
     thread loadingThread(&Definite::ShowLoadingAnimation, this);
 
@@ -127,44 +189,21 @@ void Definite::StartGame()
             future.get();
         }
     }
+
     loadFutures.clear();
 
     allTasksCompleted = true;
+
     loadingThread.join();
 
-    for (const auto& wordData : words)
-    {
-		consoleData->ClearConsole();
-
-        consoleData->PrintCenteredText("Word: " + wordData.word);
-		consoleData->PrintCenteredText("Definition: " + wordData.definition, 0, 1);
-		consoleData->PrintCenteredText("Your answer: ", 0, 2);
-
-        string answer;
-        getline(cin, answer);
-
-        if (answer == wordData.word)
-        {
-			consoleData->PrintCenteredText("Correct!");
-            score++;
-        }
-        else
-        {
-			consoleData->PrintCenteredText("Incorrect! The correct word was:");
-			consoleData->PrintCenteredText(wordData.word, 0, 1);
-        }
-
-		Sleep(2000);
-
-		consoleData->ClearConsole();
-    }
+	GameLoop();
 
     ShowResults();
 }
 
 void Definite::ShowResults()
 {
-	consoleData->ClearConsole();
+	system("cls");
 
 	consoleData->PrintCenteredText("Game Finished!");
 	consoleData->PrintCenteredText("You scored " + to_string(score) + " out of " + to_string(rounds) + "!", 0, 1);
@@ -172,19 +211,50 @@ void Definite::ShowResults()
 	Sleep(2000);
 }
 
-void Definite::CheckErrorCode(http_response wordResponse)
+void Definite::CheckErrorCode(http_response wordResponse, string type)
 {
+	system("cls");
+
     if (wordResponse.status_code() == 400)
     {
-        cout << "400 - Bad request" << endl;
+		consoleData->PrintCenteredText(type + "400 - Bad request", 0, errorsQnty + 1);
     }
     else if (wordResponse.status_code() == 404)
     {
-        cout << "404 - Not found" << endl;
+        consoleData->PrintCenteredText(type + "404 - Not found", 0, errorsQnty + 1);
     }
     else if (wordResponse.status_code() == 500)
     {
-        cout << "500 - Internal server error" << endl;
+        consoleData->PrintCenteredText(type + "500 - Internal server error", 0, errorsQnty + 1);
     }
 
+	errorsQnty++;
+}
+
+void Definite::CheckCorrectAnswer(string word)
+{
+    string answer;
+
+	Vector2<int> center = consoleData->GetConsoleCenterV2();
+	center.x -= 4;
+	center.y += 2;
+
+    consoleData->SetCursorPosition(center);
+
+    getline(cin, answer);
+
+    system("cls");
+
+    if (answer == word)
+    {
+        consoleData->PrintCenteredText("Correct!");
+        score++;
+    }
+    else
+    {
+        consoleData->PrintCenteredText("Incorrect! The correct word was:");
+        consoleData->PrintCenteredText(word, 0, 1);
+    }
+
+    Sleep(2000);
 }
